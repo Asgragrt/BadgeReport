@@ -10,12 +10,8 @@ guiApplication = QGuiApplication.instance()
 
 
 def getRemainingCardCount() -> int:
-    # Get queued cards (new/learning cards)
-    queuedCards = mw.col.sched.get_queued_cards()
-    cardCount = queuedCards.new_count + queuedCards.learning_count
-
-    # Get due cards
-    cardCount += len(mw.col.find_cards("is:due"))
+    scheduler = mw.col.sched
+    cardCount = sum(scheduler.counts())
     return cardCount
 
 
