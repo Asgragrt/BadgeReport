@@ -9,15 +9,25 @@ from aqt import gui_hooks
 guiApplication = QGuiApplication.instance()
 
 
+cardCount = 0
+
+
 def getRemainingCardCount() -> int:
     scheduler = mw.col.sched
-    cardCount = sum(scheduler.counts())
-    return cardCount
+    count = sum(scheduler.counts())
+    return count
 
 
 def displayCardCount(*_) -> None:
-    cardCount = getRemainingCardCount()
+    global cardCount
+
+    newCount = getRemainingCardCount()
+    if newCount == cardCount:
+        return
+
+    cardCount = newCount
     guiApplication.setBadgeNumber(cardCount)
 
 
 gui_hooks.operation_did_execute.append(displayCardCount)
+gui_hooks.focus_did_change.append(displayCardCount)
