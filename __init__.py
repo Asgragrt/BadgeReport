@@ -22,6 +22,11 @@ def displayCardCount(*_) -> None:
     global cardCount
 
     newCount = getRemainingCardCount()
+
+    # Clamp value
+    if newCount > 99:
+        newCount = 100
+
     if newCount == cardCount:
         return
 
