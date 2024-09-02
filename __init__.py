@@ -13,9 +13,12 @@ cardCount = 0
 
 
 def getRemainingCardCount() -> int:
-    scheduler = mw.col.sched
-    count = sum(scheduler.counts())
-    return count
+    try:
+        scheduler = mw.col.sched
+        count = sum(scheduler.counts())
+        return count
+    except:
+        return cardCount
 
 
 def displayCardCount(*_) -> None:
